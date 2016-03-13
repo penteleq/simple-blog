@@ -2,7 +2,7 @@ blog
 ====
 
 Simple blog using:
-- Symfony 3.0
+- Symfony 2.8
 - friendsofsymfony/user-bundle
 - Redux framework
 
