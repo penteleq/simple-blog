@@ -1,4 +1,4 @@
-blog
+The Blog
 ====
 
 Simple blog using:

@@ -10,7 +10,50 @@
         <script src="{{ asset('js/app.min.js') }}"></script>
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+        <div class="blog-masthead">
+            <div class="container">
+                <nav class="blog-nav">
+                    <a class="blog-nav-item" href="{{ path('homepage') }}">Home</a>
+
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+                        {% if manage == false %}
+                            <a class="blog-nav-item" href="{{ path('admin_posts') }}">
+                                {{ 'admin.dashboard'|trans({}, '') }}
+                            </a>
+                        {% endif %}
+
+                        <a class="blog-nav-item" href="{{ path('fos_user_security_logout') }}">
+                            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} | {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                        </a>
+                    {% else %}
+                        <a class="blog-nav-item" href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                    {% endif %}
+                </nav>
+            </div>
+        </div>
+
+        <div class="container">
+
+            {% if manage == false %}
+            <div class="blog-header">
+                <h1 class="blog-title">The Blog</h1>
+                <p class="lead blog-description">Example blog.</p>
+            </div>
+            {% else %}
+                <p class="lead blog-description" style="margin-top:24px;">Admin Dashboard</p>
+            {% endif %}
+
+            {% block body %}{% endblock %}
+
+        </div><!-- /.container -->
+
+        <footer class="blog-footer">
+            <p>Rafał Łyczkowski @ {{ "now"|date("Y") }}</p>
+        </footer>
+
         {% block javascripts %}{% endblock %}
+
     </body>
 </html>

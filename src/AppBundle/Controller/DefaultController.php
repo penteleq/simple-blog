@@ -11,21 +11,28 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-        // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
+            'manage' => false
         ]);
     }
 
     /**
-     * @Route("/panel", name="panel")
+     * Simple stub
      */
-    public function panelAction(Request $request)
+    protected function __createUserHelper()
     {
-        // replace this example code with whatever you need
-        var_dump("PANEL");
-        die();
+        $userManager = $this->container->get('fos_user.user_manager');
+
+        $userAdmin = $userManager->/*findUserByUsername('uzytkownik2'); //*/createUser();
+
+        $userAdmin->setUsername('uzytkownik2');
+        $userAdmin->setEmail('uzytkownik2@example.com');
+        $userAdmin->setPlainPassword('uzytkownik2');
+        $userAdmin->setEnabled(true);
+        $userAdmin->addRole('ROLE_ADMIN');
+
+        $userManager->updateUser($userAdmin, true);
     }
 }
